@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Maintenance Page Setup
 
-## Getting Started
+This repository contains a simple maintenance page built with Next.js using TypeScript, Tailwind CSS, and the App Router. This page is designed to return a `503 Service Unavailable` status code and display a customizable maintenance message, including a generic company logo.
 
-First, run the development server:
+## Table of Contents
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Deployment to Cloudflare Pages](#deployment-to-cloudflare-pages)
+- [Customization](#customization)
+- [AI Tools Disclosure](#ai-tools-disclosure)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Clone the repository:**
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+   ```bash
+   git clone https://github.com/yourusername/your-repo-name.git
+   cd your-repo-name
+   ```
 
-## Learn More
+2. **Install dependencies:**
 
-To learn more about Next.js, take a look at the following resources:
+   Ensure you have Node.js and npm installed. Then, install the necessary dependencies:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   npm install
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+3. **Run the development server:**
 
-## Deploy on Vercel
+   Start the development server to preview the maintenance page locally:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   npm run dev
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+   The page should be available at `http://localhost:3000`.
+
+## Configuration
+
+### Middleware
+
+The `middleware.ts` file handles setting the `503` status code and rewriting requests to the maintenance page.
+
+### Logo
+
+To customize the logo:
+
+1. Replace the `logo.png` file in the `public` directory with your company's logo.
+2. The image will automatically be displayed on the maintenance page.
+
+### Tailwind CSS
+
+You can customize the styling of the page by modifying the Tailwind CSS classes in `app/page.tsx`. Tailwind CSS is already configured in the project, so any changes you make will be reflected immediately.
+
+## Deployment to Cloudflare Pages
+
+To deploy this maintenance page on Cloudflare Pages, follow these steps:
+
+1. **Login to Cloudflare:**
+
+   Log in to your Cloudflare account at [https://dash.cloudflare.com](https://dash.cloudflare.com).
+
+2. **Create a new Cloudflare Pages project:**
+
+   - Go to the "Pages" section in the Cloudflare dashboard.
+   - Click on "Create a project".
+   - Connect your GitHub repository containing the maintenance page code.
+
+3. **Configure build settings:**
+
+   - **Build command:** `npm run build`
+   - **Output directory:** `.next`
+
+   Make sure the output directory matches the default for Next.js when building for static export.
+
+4. **Deploy the project:**
+
+   Once configured, trigger a deployment. Cloudflare Pages will build and deploy the maintenance page.
+
+5. **Custom Domain (Optional):**
+
+   If you want to deploy this under a custom domain, configure your domain in the Cloudflare dashboard and link it to your Cloudflare Pages project.
+
+## Customization
+
+### Customizing Text and Layout
+
+You can customize the text and layout of the maintenance page by editing the `app/page.tsx` file. The content is structured in a way that allows easy updates to the maintenance message, styling, and structure.
+
+### Updating the Estimated Downtime
+
+If you want to display an estimated time for how long the maintenance will last, simply update the text in the `page.tsx` component under the `<p>` tag with the class `"text-sm text-gray-500"`.
+
+## AI Tools Disclosure
+
+This project was developed with the assistance of AI tools, specifically OpenAI's ChatGPT, which was used to generate code, provide architectural guidance, and draft documentation. The generated content has been reviewed and modified to meet the specific requirements of this project.
