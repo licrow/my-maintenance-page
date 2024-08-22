@@ -15,8 +15,8 @@ This repository contains a simple maintenance page built with Next.js using Type
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/your-repo-name.git
-   cd your-repo-name
+   git clone https://github.com/licrow/my-maintenance-page.git
+   cd my-maintenance-page
    ```
 
 2. **Install dependencies:**
