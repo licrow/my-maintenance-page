@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { headers } from 'next/headers';
+import Image from 'next/image';
 
 const MaintenancePage: React.FC = () => {
   // Check if the request is in maintenance mode by looking for the custom header
@@ -11,12 +12,14 @@ const MaintenancePage: React.FC = () => {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="text-center">
-          <img
+          <Image
             src="/logo.png"
             alt="Company Logo"
-            className="w-32 h-32 mx-auto mb-8"
+            width={128}
+            height={128}
+            className="mx-auto mb-8"
           />
-          <h1 className="text-5xl font-bold text-gray-800 mb-4">We'll be back soon!</h1>
+          <h1 className="text-5xl font-bold text-gray-800 mb-4">We&apos;ll be back soon!</h1>
           <p className="text-lg text-gray-600 mb-8">
             Our website is currently undergoing scheduled maintenance.
             <br />
