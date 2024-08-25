@@ -20,11 +20,13 @@ async function handleRequest(request) {
   const response = await fetch(originRequest)
   
   if (response.ok) {
-    let content = await response.text()
     const contentType = response.headers.get('Content-Type') || ''
     
-    // Rewrite URLs in the content for HTML and CSS responses
-    if (contentType.includes('text/html') || contentType.includes('text/css')) {
+    // Handle text-based content types
+    if (contentType.includes('text/html') || contentType.includes('text/css') || contentType.includes('application/javascript')) {
+      let content = await response.text()
+      
+      // Rewrite URLs in the content
       content = content.replace(new RegExp(maintenancePageUrl, 'g'), url.origin)
       
       // Rewrite image URLs
@@ -32,17 +34,28 @@ async function handleRequest(request) {
         /(src|href)=("|')(\/(images|img|assets)\/[^"']+)("|')/g,
         `$1=$2${maintenancePageUrl}$3$4`
       )
+      
+      // Create a new response with CORS headers
+      return new Response(content, {
+        headers: {
+          ...Object.fromEntries(response.headers),
+          'Access-Control-Allow-Origin': request.headers.get('Origin') || '*',
+          'Access-Control-Allow-Methods': 'GET, HEAD, POST, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type',
+        },
+      })
+    } 
+    // For non-text content (like images), pass through the response without modification
+    else {
+      return new Response(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers: {
+          ...Object.fromEntries(response.headers),
+          'Access-Control-Allow-Origin': request.headers.get('Origin') || '*',
+        },
+      })
     }
-    
-    // Create a new response with CORS headers
-    return new Response(content, {
-      headers: {
-        ...Object.fromEntries(response.headers),
-        'Access-Control-Allow-Origin': request.headers.get('Origin') || '*',
-        'Access-Control-Allow-Methods': 'GET, HEAD, POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
-      },
-    })
   } else {
     return new Response('Resource not available', { 
       status: response.status,

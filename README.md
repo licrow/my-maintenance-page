@@ -7,6 +7,7 @@ This repository contains a simple maintenance page built with Next.js using Type
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Deployment to Cloudflare Pages](#deployment-to-cloudflare-pages)
+- [Adding a Worker Route](#adding-a-worker-route)
 - [Customization](#customization)
 - [AI Tools Disclosure](#ai-tools-disclosure)
 
@@ -82,6 +83,33 @@ To deploy this maintenance page on Cloudflare Pages, follow these steps:
 5. **Custom Domain (Optional):**
 
    If you want to deploy this under a custom domain, configure your domain in the Cloudflare dashboard and link it to your Cloudflare Pages project.
+
+## Adding a Worker Route
+
+To add a worker route to your Pages site, follow these steps:
+
+1. **Copy the worker script:**
+
+   Copy the contents of the `WORKERSCRIPT` file from the repository. This script handles routing and content rewriting for the maintenance page.
+
+2. **Update the `maintenancePageUrl` variable:**
+
+   In the worker script, replace the value of `maintenancePageUrl` with the actual URL of your deployed maintenance page.
+
+3. **Configure the route in Cloudflare:**
+
+   - Go to your Cloudflare dashboard and navigate to the "Workers & Pages" section.
+   - Find your Pages project and click on it.
+   - Go to the "Settings" tab and scroll down to the "Functions" section.
+   - Under "Routes", add a new route:
+     - Route: `test.example.com/*`
+     - Worker: Select your Pages project
+
+4. **Deploy your changes:**
+
+   Add the worker script to your Cloudflare Pages project as instructed in the Cloudflare dashboard. Cloudflare Pages will automatically deploy the changes.
+
+Now, when you access `test.example.com`, the worker will route the request to your maintenance page.
 
 ## Customization
 
