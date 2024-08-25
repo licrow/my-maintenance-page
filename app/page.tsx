@@ -4,6 +4,8 @@ import React from 'react';
 import { headers } from 'next/headers';
 import Image from 'next/image';
 
+export const runtime = 'edge';
+
 const MaintenancePage: React.FC = () => {
   // Check if the request is in maintenance mode by looking for the custom header
   const maintenanceMode = headers().get('x-maintenance-mode') === 'true';
