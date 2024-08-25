@@ -15,7 +15,7 @@ const MaintenancePage: React.FC = () => {
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="text-center">
           <Image
-            src="https://my-maintenance-page.pages.dev/logo.png"
+            src="/logo.png"
             alt="Company Logo"
             width={128}
             height={128}

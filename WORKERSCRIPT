@@ -21,10 +21,17 @@ async function handleRequest(request) {
   
   if (response.ok) {
     let content = await response.text()
+    const contentType = response.headers.get('Content-Type') || ''
     
-    // Rewrite URLs in the content only for HTML responses
-    if (response.headers.get('Content-Type')?.includes('text/html')) {
+    // Rewrite URLs in the content for HTML and CSS responses
+    if (contentType.includes('text/html') || contentType.includes('text/css')) {
       content = content.replace(new RegExp(maintenancePageUrl, 'g'), url.origin)
+      
+      // Rewrite image URLs
+      content = content.replace(
+        /(src|href)=("|')(\/(images|img|assets)\/[^"']+)("|')/g,
+        `$1=$2${maintenancePageUrl}$3$4`
+      )
     }
     
     // Create a new response with CORS headers
